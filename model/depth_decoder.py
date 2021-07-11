@@ -54,5 +54,19 @@ class DepthDecoder(nn.Module):
         self.use_skips = use_skips
         self.upsample_mode = 'nearest'
         self.scales = scales
+        
+        # decoder 
+        # range(start, stop, step)
+        # 4,3,2,1,0
+        for index in range(4, -1, -1):
+            # upconv 0 
+            if index == 4:
+                num_ch_in = self.num_ch_enc[-1]
+            else:
+                num_ch_in = self.num_ch_dec[index+1]
+            num_ch_out = self.num_ch_dec[index]
+            self.convs[("upconv", index, 0)] = ConvBlock(num_ch_in, num_ch_out]
+
+           
 
 
