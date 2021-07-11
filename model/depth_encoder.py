@@ -55,3 +55,52 @@ def resnet_multiimage_model(num_layers, pretrained=False, num_input_images=1):
         loaded = model_zoo.load_url(models.resnet.model_urls['resnet{}'.format(num_layers)])
         loaded['conv1.weight'] = torch.cat([loaded['conv1.weight']] * num_input_images, 1) / num_input_images
 
+    return model
+
+class ResnetEncoder(nn.Module):
+    '''
+    pytorch module for a resnet encoder
+    num_layers: 18, 34, 50, 101, 152 
+    pretrained: pretrained ImageNet model
+    '''
+    def __init__(self, num_layers, pretrained, num_input_images=1):
+        super(ResnetEncoder, self).__init__()
+        self.num_ch_enc = np.array([64, 64, 128, 256, 512])
+        resnets = {18: models.resnet18,
+                   34: models.resnet34,
+                   50: models.resnet50,
+                   101: models.resnet101,
+                   152: models.resnet152}
+
+        if num_layers not in resnets:
+            raise ValueError("{} is not a valid number of layers.".format(num_layers))
+
+        if num_input_images > 1:
+            self.encoder = resnet_multiimage_model(num_layers, pretrained, num_input_images)
+        else:
+            self.encoder = resnets[num_layers](pretrained)
+
+        if num_layers > 34:
+            self.num_ch_enc[1:] *= 4
+
+    def forward(self, input_image):
+        self.features = []
+        x = (input_image - 0.45) / 0.225
+        x = self.encoder.conv1(x)
+        x = self.encoder.bn1(x)
+        x = self.encoder.relu(x)
+        self.features.append(x)
+        #x = self.features[-1]
+        x = self.encoder.maxpool(x)
+        x = self.encoder.layer1(x)
+        self.features.append(x)
+       # x = self.features[-1]
+        x = self.encoder.layer2(x)
+        self.features.append(x)
+        x = self.encoder.layer3(x)
+        self.features.append(x)
+        x = self.encoder.layer4(x)
+        self.features.append(x)
+
+        return self.features
+
