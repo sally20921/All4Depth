@@ -4,4 +4,6 @@ __pycache__
 *.npz
 kitti_data
 env
+log
+ckpt
 
