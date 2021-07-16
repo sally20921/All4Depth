@@ -31,6 +31,18 @@ def load_velodyne_points(filename):
     filename: 2011_09_26_drive_0027_sync/velodyne_points/data/0000000026.bin
     '''
     points = np,fromfile(filename, dtype=np.float32).reshape(-1,4)
+    points = points[:, :3] # exclude luminance
+    return points
+
+def homogeneous_transform(points, transform):
+    '''
+    parameters
+    ----------
+    points: (n_points, M) array-like 
+        the points to transform. If 'points' is shape (n_points, M-1), a unit homogeneous coordinate will be added to make it (n_points, M)
+    transform: (M,N) arrray-like
+        the right-multiplying transformation to apply.
+    '''
 
 
 def read_calib_file(path):
