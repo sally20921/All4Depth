@@ -15,4 +15,11 @@ tqdm
 natsorted
 Pillow
 albumentations == 0.5.2
+pebble
+argparse
+tensorboardX
+blessings
+progressbar2
+
+
 

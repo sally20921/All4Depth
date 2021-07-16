@@ -30,8 +30,12 @@ def load_velodyne_points(filename):
     '''
     filename: 2011_09_26_drive_0027_sync/velodyne_points/data/0000000026.bin
     '''
+
+    # load velodyne points and remove all behind image plane
+    # each row of the velodyne data is forward, left, up, reflectance
     points = np,fromfile(filename, dtype=np.float32).reshape(-1,4)
     points = points[:, :3] # exclude luminance
+    points[:, 3] = 1.0
     return points
 
 def homogeneous_transform(points, transform):
@@ -81,4 +85,85 @@ def sub2ind(matrixSize, rowSub, colSub):
     m, n = matrixSize
     return rowSub * (n-1) + colSub -1 
 
+def read_cam2cam(calib_path):
+    data = {}
+    with open(calib_path, 'r') as f:
+        for line in f.readlines():
+            key, value = line.split(":", 1)
+            try:
+                data[key] = np.array([float(x) for x in value.split()])
+            except ValueError:
+                pass
+    P_rect_02 = np.reshape(data['P_rect_02'], (3,4))
+    P_rect_03 = np.reshape(data['P_rect_03'], (3,4))
+    intrinsic_left = P_rect_02[:3, :3]
+    intrinsic_right = P_rect_03[:3, :3]
 
+    identity_l = np.eye(4)
+    identity_r = np.eye(4)
+    identity_l[:3, :3] = intrinsic_left
+    identity_r[:3, :3] = intrinsic_right
+    identity_l = identity_l.astype(np.float32)
+    identity_r = identity_r.astype(np.float32)
+    return identity_l, identity_r
+
+def Point2Depth(velo2cam_path, cam2cam_path, point_path, cam=2, vel_depth=True):
+    '''
+    generate a depth map from velodyne data
+    '''
+    '''
+    points_path = "./2011_09_26_drive_0017_sync/velodyne_points/data/0000000042.bin"
+    
+    GT depth information
+    np.max ~80
+    np.min ~0
+    shape: [375, 1242]
+    '''
+    cam2cam = read_cam2cam(os.path.join(cam2cam_path))
+    velo2cam = read_velo2cam(os.path.join(velo2cam_path))
+    '''
+    a = np.array((1,2,3))
+    b = np.array((4,5,6))
+    np.hstack((a,b))
+    arrray([1,2,3,4,5,6])
+    '''
+
+    '''
+    a = np.arange(6).reshape(2,3)
+    print(a)
+    [[0 1 2] [3 4 5]]
+    a.shape
+    (2,3)
+    print(a[:, :, np.newaxis])
+    [[[0] [1] [2]] [[3] [4] [5]]]
+    print(a[:, :, np.newaxis].shape)
+    (2,3,1)
+    '''
+    velo2cam = np.hstack((velo2cam['R'].reshape(3,3), velo2cam['T'][..., np.newaxis]))
+    velo2cam = np.vstack(velo2cam, np.array([0,0,0,1.0]))
+    
+    # img_size (375, 1242)
+    # list[<start>:<stop>:<step>]
+    im_shape = cam2cam["S_rect_02"][::-1].astype(np.int32)
+
+    # compute projection matrix velodyne -> image plane
+    R_cam2rect = np.eye(4)
+    R_cam2rect[:3, :3] = cam2cam['R_rect_00'].reshape(3,3)
+    P_rect = cam2cam['P_rect_0'+str(cam)].reshape(3,4)
+    # cam = 2
+    # numpy.dot(a,b, out=None) dot product of two arrays
+    P_velo2im = np.dot(np.dot(P_rect, R_cam2rect), velo2cam)
+
+    # load velodyne points and remove all behind image plane (approximation)
+    # each row of the velodyne data is forward, left, up, reflectance
+    velo = load_velodyne_points(velo_filename)
+    velo = velo[velo[:,0] >= 0, :]
+
+    # project the points to the camera
+    velo_pts_im = np.dot(P_velo2im, velo.T).T
+    
+    if vel_depth:
+        velo_pts_im[:, 2] = velo[:, 0]
+    # project to image
+
+    # find the duplicate points and choose the closest depth 
