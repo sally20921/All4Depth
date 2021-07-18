@@ -40,5 +40,25 @@ class KITTIDataset(MonoDataset):
         
         return os.path.isfile(velo_filename)
 
+    def get_color(self, folder, frame_idx, side, do_flip):
+        color = self.loader(self.get_image_path(folder, frame_idx, side))
+
+        if do_flip:
+            color = color.transpose(pil.FLIP_LEFT_RIGHT)
+
+        return color 
+
+class KITTIRawDataset(KITTIDataset):
+    '''
+    KITTI dataset which loads the original velodyne depth maps for ground truth
+    '''
+    def __init__(self, *args, **kwargs):
+        super(KITTIRawDataset, self).__init__(*args, **kwargs)
+
+    def get_image_path(self, folder, frame_index, side):
+        f_str = "{:010d}{}".format(frame_index, self.img_ext)
+        image_path = os.path.join(self.data_path, folder, "image_0{}/data".format(self.side_map[side]), f_str)
+        return image_path
+
 
 
