@@ -24,6 +24,22 @@ def euler2mat(angle): # [B, 3, 1]
     zmat = torch.stack([cosz, -sinz, zeros,
                         sinz, cosz, zeros,
                         zeros, zeros, ones], dim=1).reshape(B, 3, 3)
+    
+    cosy = torch.cos(y)
+    siny = torch.sin(y)
+    ymat = torch.stack([cosy, zeros, siny,
+                        zeros, ones, zeros,
+                        -siny, zeros, cosy], dim=1).reshape(B, 3, 3)
+
+    cosx = torch.cos(x)
+    sinx = torch.sin(x)
+    xmat = torch.stack([ones, zeros, zeros, 
+                        zeros, cosx, -sinx,
+                        zeros, sinx, cosx], dim=1).reshape(B, 3, 3)
+
+    rotMat = xmat @ ymat @ zmat
+    return rotMat
+
 
 
 def pose_vec2mat(vec, rotation_mode='euler'):

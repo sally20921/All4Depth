@@ -167,3 +167,20 @@ def Point2Depth(velo2cam_path, cam2cam_path, point_path, cam=2, vel_depth=True):
     # project to image
 
     # find the duplicate points and choose the closest depth 
+
+def generate_depth_map(calib_dir, velo_filename, cam=1, vel_depth=False):
+    '''
+    generate a depth map from velodyne data
+    '''
+
+    # load calibration files
+
+    # get image shape
+
+    # compute projection matrix velodyne -> image plane
+
+    # project the points to the camera
+
+    # project to image
+
+    # find the duplicate points and choose the closest path
