@@ -60,5 +60,24 @@ class KITTIRawDataset(KITTIDataset):
         image_path = os.path.join(self.data_path, folder, "image_0{}/data".format(self.side_map[side]), f_str)
         return image_path
 
+    def get_depth(self, folder, frame_idx, side, do_flip):
+        calib_path = os.path.join(self.data_path, folder.split("/")[0])
+
+        velo_filename = os.path.join(
+                self.data_path,
+                folder, 
+                "velodyne_points/data/{:010d}.bin".format(int(frame_index)))
+
+        depth_gt = generate_depth_map(calib_path, velo_filename, self.side_map[side])
+        depth_gt = skimage.transform.resize(
+                depth_gt, self.full_res_shape[::-1], order=0, preserve_range=True, mode='constant')
+
+        if do_flip:
+            depth_gt = np.fliplr(depth_gt)
+
+        return depth_gt
+
+
+
 
 
