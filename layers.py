@@ -16,6 +16,24 @@ def disp_to_depth(disp, min_depth, max_depth):
     depth = 1 / scaled_disp
     return scaled_disp, depth
 
+def get_translation_matrix(translation_vector):
+    '''convert a translation vector into a 4x4 transformation matrix
+    ex. 
+    trvec = [0.5, 6, 100]
+    tform = get_translation_matrix(trvec)
+    t.form.shape # 4x4
+    tform # [[1.000 0 0 0.5]
+            [0 1.000 0 6]
+            [0 0 1.000 100]
+            [0 0 0 1.000]]
+
+    trvec- Cartesian representation of a translation vector
+    n-by-3 matrix containing n translation vectors t=[x y z]
+    tform- homogeneous transformation 
+    4-by-2-by-n matrix of n homogeneous transformations 
+    '''
+    # T[:, :3, 3, None=np.newaxis] = t
+
 
 class BackprojectDepth(nn.Module):
     '''
