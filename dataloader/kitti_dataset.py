@@ -48,7 +48,7 @@ class KITTIDataset(MonoDataset):
 
         return color 
 
-class KITTIRawDataset(KITTIDataset):
+class KITTIRAWDataset(KITTIDataset):
     '''
     KITTI dataset which loads the original velodyne depth maps for ground truth
     '''
@@ -77,7 +77,53 @@ class KITTIRawDataset(KITTIDataset):
 
         return depth_gt
 
+class KITTIOdomDataset(KITTIDataset):
+    '''
+    KITTI dataset for odometry training and testing
+    '''
+    def __init__(self, *args, **kwargs):
+        super(KITTIOdomDataset, self).__init__(*args, **kwargs)
 
+    def get_image_path(self, folder, frame_idx, side):
+        f_str = "{:06d}{}".format(frame_idx, self.img_ext)
+        image_path = os.path.join(
+                self.data_path,
+                "sequences/{:02d}".format(int(folder)),
+                "image_{}".format(self.side_map[side]),
+                f_str)
+        return image_path
+
+class KITTIDepthDataset(KITTIDataset):
+    '''
+    KITTI dataset which uses the updated ground truth depth maps
+    '''
+    def __init__(self, *args, **kwargs):
+        super(KITTIDepthDataset, self).__init__(*args, **kwargs)
+
+    def get_image_path(self, folder, frame_index, side):
+        f_str = "{:010d}{}".format(frame_index, self.img_ext)
+        image_path = os.path.join(
+                self.data_path,
+                folder,
+                "image_0{}/data".format(self.side_map[side]),
+                f_str)
+        return image_path
+
+    def get_depth(self, folder, frame_idx, side, do_flip):
+        f_str = "{:010d}.png".format(frame_index)
+        depth_path = os.path.join(
+                self.data_path,
+                folder,
+                "proj_depth/groundtruth/image_0{}".format(self.side_map[side]),
+                f_str)
+        depth_gt = pil.open(depth_path)
+        depth_gt = depth_gt.resize(self.full_res_shape, pil.Nearest)
+        depth_gt = np.array(depth_gt).astype(np.float32) / 256
+
+        if do_flip:
+            depth_gt = np.fliplr(depth_gt)
+
+        return depth_gt
 
 
 
