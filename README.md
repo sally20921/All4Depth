@@ -62,4 +62,9 @@ eul = [0 pi 0]
 * You should pre-multiply your rotation matrix with your coordinates, which are represented as a matrix of row vectors (n-by-3 matrix of points). 
 
 ### Translation Vetor
+* A translation vector is represented in 3-D Euclidean space as Cartesian coordinates. 
+* It only involves coordinate translation applied equally to all points. 
+* There is no rotation involved. 
+* 1-by-3 vector
+* a translation by 3 units along the x-axis and 2.5 units along the z-axis would be expressed as`trvec = [3 0 2.5]`.
 

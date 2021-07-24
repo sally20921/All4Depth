@@ -27,6 +27,17 @@ from .mono_dataset import MonoDataset
 #data_dir = os.path.joint(os.path.dirname(root_dir), 'data')
 #image_shape = 375, 1242
 
+def transform_from_rot_trans(R, t):
+    '''transformation matrix from rotation matrtix and translation vector
+    trvec = [3 0 2.5]
+    rotm = [[1 0 0]
+            [0 cos a -sin a]
+            [0 sin a cos a]]
+    '''
+    R = R.reshape(3,3)
+    t = t.reshape(3,1)
+    return np.vstack((np.hstack([R, t]), [0, 0, 0, 1]))
+
 def load_velodyne_points(filename):
     '''
     filename: 2011_09_26_drive_0027_sync/velodyne_points/data/0000000026.bin
