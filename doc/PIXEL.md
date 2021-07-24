@@ -55,4 +55,10 @@
 * It's important to understand that we don't explicitly transform the coordinate system. We translate, scale and rotate the object, these transformations are represented by a 4x4 matrix, and this matrix can be visualized as a coordinate system. 
 
 ## Transforming Points from One Coordinate System to Another
-* As suggested before, it is sometimes more convenient to operate on points when they are defined with respect to a local coordinate system rather than 
+* As suggested before, it is sometimes more convenient to operate on points when they are defined with respect to a local coordinate system rather than defined with respect to the world coordinate system. For instance, in the example of the cube, defining the corners of the cube in local space is easier than in world space. But how do we convert a poitn or vertex from one coordinate system to another? That's easy. It we know the 4x4 matrix *M* that transforms a coordinate system *A* into a coordiante sytem *B*, then if we transform a point whose coordinates are originally defined with respect to *B* with the inverse of *M*, we get the coordinates of *P* with respect to *A*. 
+
+-Figure 6. to tranform a point which is defined in the local coordinate system to world space, we multiply the point local coordinates by M. 
+
+
+
+
