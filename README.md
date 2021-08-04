@@ -1,4 +1,4 @@
-# Reproduction of SOTA Monocular Depth Estimation Methods
+# MonoDepth to ManyDepth: Self-Supervised Monocular Depth Estimation
 ```
 wget -i splits/kitti_archieves_to_download.txt -P kitti_data/
 cd kitti_data/
