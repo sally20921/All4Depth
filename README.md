@@ -1,4 +1,7 @@
-# MonoDepth to ManyDepth: Self-Supervised Monocular Depth Estimation
+# *MonoDepth to ManyDepth*: Self-Supervised Depth Estimation on Monocular Sequences
+1. Dataset 
+- Dense Depth for Autonomous Driving (DDAD)
+- KITTI Eigen Split
 ```
 wget -i splits/kitti_archieves_to_download.txt -P kitti_data/
 cd kitti_data/
