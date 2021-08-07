@@ -55,3 +55,54 @@
 	consider the scene structure and camera motion at the same time, where camera pose estimation has a positive impact on monocular depth estimation. these two sub-networks are trained jointly, and the entire model is constrained by image reconstruction loss similar to stereo matching methods. 
 	formulate the problem as the minimization of a photometric reprojection  error at training time
 	formulate the problem as the minimization of a photometric reprojection  error at training time
+
+3. Folder
+``
+dataset/
+    2011_09_26/
+    ...
+    ...
+model_dataloader/
+model_layer/
+model_loss/
+model_save/
+model_test.py
+model_train.py
+model_parser.py
+model_utility.py
+```
+
+4. Packages
+```
+apt-get update -y
+apt-get install moreutils
+or
+apt-get install -y moreutils
+```
+
+5. Training
+```
+python model_train.py --pose_type separate --datatype kitti_eigen_zhou
+python model_train.py --pose_type separate --datatype kitti_benchmark
+```
+
+6. Test
+```
+python model_test.py
+```
+
+7. evaluation
+```
+kitti_eigen_zhou 
+abs_rel   sqrt_rel  rmse      rmse_log  a1        a2        a3
+0.125     0.977     4.992     0.202     0.861     0.955     0.980
+
+kitti_eigen_benchmark
+abs_rel   sqrt_rel  rmse      rmse_log  a1        a2        a3
+0.104     0.809     4.502     0.182     0.900     0.963     0.981
+```
+
+
+
+
+
