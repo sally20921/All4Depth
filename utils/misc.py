@@ -69,39 +69,24 @@ def same_shape(shape1, shape2):
             return False
     return True
 
-def parse_crop_borders(borders, shape):
-    '''
-    calculate the borders (parse the borders)  => for cropping.
+# used in datasets.transforms
+'''
+torchvision.transforms.CenterCrop(size)
+- crop the image at the center
+- image is expecte to have [.... H, W] shape
+- if image size is smaller than output size along any edge, image is padded with 0 and then center
 
-    Parameters
-    __________
-    borders: tuple
-        border input for parsing. can be one of the following forms:
-        (int, int, int, int): y, height, x, width
-        (int, int): y, x 
-        --> in this case: height = image_height-y, width = image_width-x
+def _get_image_size(img: Any) -> List[int]: # Tensor (.., H, W)
+    # returns (w, h) of tensor image
+    if isinstance(img, Image.Image):
+        return img.size
+    return [img.shape[-1], img.shape[-2]]
 
-    shape: tuple
-        image_shape: (image_height, image_width)
-            used to determine crop boundaries
+def center_crop(img: Tensor, output_size: List[int]) -> Tensor:
+    image_width, image_height = _get_image_size(img)
+    crop_height, crop_width = output_size
 
-    Returns
-    _______         (x1, y1, x2, y2)
-    borders: tuple (left, top, right, bottom)
-        parsed borders for cropping
-    '''
-    # if borders is an empty tuple (no borders to crop), return the full image
-    if len(borders) == 0:
-        return 0, 0, shape[1], shape[0]
-
-    # copy borders as a list for modification
-    borders = list(borders).copy()
-    # copy() method returns a new list. 
-
-    # if the borders are 4-dimensional 
-    if len(borders) == 4:
-        borders = [borders[2], borders[0], borders[3], borders[1]]
-                # put it in (x1, y1, width, height) order
-
-
+def pad(img: Tensor, padding: List[int], fill: int = 0, padding_mode: str="constant") -> Tensor:
+    # padding: (left, top, right, bottom)
+'''
 
