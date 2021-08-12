@@ -61,7 +61,7 @@
 	formulate the problem as the minimization of a photometric reprojection  error at training time
 
 3. Folder
-``
+```
 dataset/
     2011_09_26/
     ...
@@ -105,6 +105,17 @@ kitti_eigen_benchmark
 abs_rel   sqrt_rel  rmse      rmse_log  a1        a2        a3
 0.104     0.809     4.502     0.182     0.900     0.963     0.981
 ```
+
+## Padding
+### What is padding and why do we need it?
+
+![Screen Shot 2021-08-12 at 8 33 57 AM](https://user-images.githubusercontent.com/38284936/129116773-479b1e81-211c-4982-974d-944a95853dca.png)
+
+* What is a feature map? that's the yellow block in the image. 
+* It's a collection of *N* one-dimensional "maps" that each represent a particular "feature" that the model has spotted within the image. 
+* why convolutional layers are known as feature extractors
+
+* How 
 
 
 
