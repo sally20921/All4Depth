@@ -115,7 +115,10 @@ abs_rel   sqrt_rel  rmse      rmse_log  a1        a2        a3
 * It's a collection of *N* one-dimensional "maps" that each represent a particular "feature" that the model has spotted within the image. 
 * why convolutional layers are known as feature extractors
 
-* How 
+* How do we get from input (whether image or feature map) to a feature map? 
+* through *kernels* or *filters*
+* you configure some number *N* per convolutional layer
+* "slide"(convolve) over your input data
 
 
 
