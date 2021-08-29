@@ -1,0 +1,70 @@
+---
+layout: post
+title:  "Geometric Deep Learning"
+date:   2021-08-26 06:24:18 +0900
+categories: [deep learning, vision]
+---
+
+## Introduction
+The vast majority of deep learning is performed on Euclidean data. This includes data types in 1-dimensional and 2-dimensional domain. But we don't exist in 1D or 2D world. All that we can observe exists in 3D, and our data should reflect that. It's about time machine learning gets to our level. 
+
+Images, text, audio, and many others are all euclidean data. Non-Euclidean data can represent more complex items and concepts with more accuracy than 1D or 2D representation. When we represent things in a non-Euclidean way, we are giving it an inductive bias. This is based on the intuition that, given data of an arbitrary type, format and size, one can prioritize the model to learn certain patterns by changing the structure of the data. In the majority of current research pursuits and literature, the inductive bias that is used is relational. 
+
+Building on this intuition, Geometric Deep Learning (GDL) is the niche field under the umbrella of deep learning that aims to build neural networks that can learn from non-Euclidean data. 
+
+The prime example of a non-Euclidean datatype is a graph. Graphs are a type of data structure that consists of nodes (entities) that are connected with edges (relationships). This abstract data structure can be used to model almost anything.  We want to be able to learn from graphs because:
+> Graphs allows us to represent individual features, while also providing information regarding relationships and structure.
+
+There are various types of graphs, each with a set of rules, properties, and possible actions. Graph Theory is the study of graphs and what we can learn from them. 
+
+## Examples of Geometric Deep Learning
+### 3D Modeling and Learning 
+Consider a person posing for a camera. This image is 2D, although in our minds we are aware that it represents a 3D person. Our current algorithms, namely CNNs, are pretty good at predicting labels like the person posing or the kind of poses given only a 2D image. The difficulty arises when poses become extreme and the angle is no longer fixed. Often times there may be clothing or objects in an image that obstruct the view of an algorithm, making it difficult to predict the pose. 
+
+Now imagine a 3D model of this same person making poses. The CNN can now run on the 3D object itself rather than a 2D image of the object. Instead of learning from a 2D representation, which restricts the data to a single perspective angle, imagine if we could run a convolution directly on the object itself. Analogously to traditional CNNs, the kernel would pass through every pixel represented as a node in a point cloud. Every corner and crevice on the 3D model would be covered and the information will be considered. In short, the difference between vanilla CNNs versus it's geometric equivalent is predicting the label of an object given a picture of it, versus predicting the label of an object given a 3D model of it. 
+
+As our 3D modelling, design and printing technology improves, one could imagine how this would yield far more accurate and precise results. 
+
+## The Case of Dimensionality 
+### Dimensions in the traditional sense
+The notion of dimensionality is already commonly used in data science and machine learning, whre the number of dimensions correlates to  the number of features/attributes per example/datapoint in a dataset. 
+
+While at first, the performance of machine learning algorithms spikes, after a certain number of features (dimensions), the performance levels off. This is known as the curse of dimensionality. 
+
+Geometric deep learning doesn't solve this problem. Rather, algorithms like graph convolutions reduce the performance penalties incurred when using datatypes that have a lot of features, since relational data is considered via inductive bias and not as an additional feature. 
+
+### What we talk about when we talk about dimensionality 
+Dimensionality in geometric deep learning is just a question of data being used in training a neural network. Euclidean data obeys the rules of Euclidean geometry, while non-Euclidean data is loyal to non-Euclidean geometry.
+
+Euclidean geometry can be summed up with the phrase:
+> The shortest path between 2 points isn't necessarily a straight line. 
+
+Other stranger rules include:
+* Interior angles of triangles always add up to more than 180 degrees
+* Parallel lines can meet, either infinitely or never
+* Quadrilateral shapes can have curved lines as sides
+
+There is an entire field of non-Euclidean geometry which is another topic own its own. For a bit of an intuition-boost, take an image, one of the most popular Eucildean datatypes. An image that is made up of pixels have a notion of left, right, up, and down. One can traverse the image by translating a function over the image recursively. This is exactly what a CNN does. 
+
+On a graph, however, there is no notion of left, right, up or down. There is just a node that is connected to an arbitrary number of nodes. A node can even be connected to itself.
+
+Dimensions in the traditional sense of machine and deep learning still exist in the use of non-Euclidean data for training neural networks. It is entirely possible to have many node features for example, where each feature is another "dimension". But the term is rarely used in literature to represent this.
+
+## # The Standard VS The New
+Machine learning has centered around deep learning, which itself revolved around a handful of popular algorithms. Each algorithm roughly specializes in a specific data type. Graph neural networks (GNNs) are a type of geometric deep learning algorithm built on graphs and networks. 
+
+> Graph convolutional networks are the best thing since sliced bread because they allow algorithms to analyze information in its native form rather than requiring an arbitrary representation of that same information in lower dimensional space which destroys the relationship between the data samples. 
+
+Graph convolutional networks, or GCNs is to a graph neural networks what CNNs are to vanilla neural networks. The implication of this new method makes a big difference; we are no longer forced to leave behind important information in a dataset. Information like structure, relationships, and connections, which are integral to some of the most important data-giving tasks and industries like transportation, social media, and protein networks.
+
+In short, the field of geometric deep learning has 3 main contributions:
+1. We can make use of non-Euclidean data.
+2. We can maximize on the information from the data we collect.
+3. We can use this data to teach machine learning algorithms.
+
+## In Essence 
+So, what is geometric deep learning?
+> Geometric deep learning is a niche in deep learning that aims to generalize neural network models to non-Euclidean domains such as graphs and manifolds.
+
+The notion of relationships, connections, and shared properties is a concept that is naturally occurring in humans and nature. Understanding and learning from these connections is something we take for granted. Geometric deep learning is significant because it allows us to take advantage of data with inherent relationship, connections, and shared properties.
+
