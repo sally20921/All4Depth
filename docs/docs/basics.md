@@ -12,7 +12,9 @@ This chapter covers the basics of content creation with Hydejack.
 0. this unordered seed list will be replaced by toc as unordered list
 {:toc}
 
-$$$$x^2 + y^2$$$$ seeing if this works. $$x^2$$ this should work as well.
+$$x^2 + y^2$$ 
+
+seeing if this works. $x^2$ this should work as well.
 
 ## Adding images
 Adding good images is key to a engaging blog experience. You can provide an `image` attribute in in the front matter of posts, pages, and projects* that will be used by Hydejack in a variety of ways, 
