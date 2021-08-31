@@ -52,10 +52,6 @@ def pose_vec2mat(vec, mode='euler'):
 
     returns
     _____
-    mat: [B,3,4]
+    mat: [B,4,4]
     '''
-    if mode is None:
-        return vec
-    trans = vec[:, :3].unsqueeze(-1) # [B,3,1]
-    rot = vec[:, 3:] # [B,3]
     
