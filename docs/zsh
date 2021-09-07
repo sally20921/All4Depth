@@ -1,0 +1,16 @@
+#!/bin/bash
+#
+# Create a Jekyll site in the current directory
+# jekyll new --skip-bundle .
+echo 'gem "github-pages", group: :jekyll_plugins' >> Gemfile
+echo 'gem "just-the-docs"' >> Gemfile
+# don't do this! manully install jekyll-spaceship
+# echo 'gem "jekyll-spaceship"' >> Gemfile
+
+# echo 'theme: "just-the-docs"' >> _config.yml
+# echo 'remote_theme: pmarsceill/just-the-docs' >> _config.yml
+
+bundle config path 'vendor/bundle' --local
+bundle install 
+bundle exec just-the-docs rake search:init
+bundle exec jekyll-serve
