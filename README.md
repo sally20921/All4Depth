@@ -1,5 +1,8 @@
 ## All4Depth: A PyTorch Collection of Self-Supervised Depth Estimation Methods 
 
+![](/assets/kitti.png)
+![](/assets/ddad.png)
+
 ### Installation
 - You need a machine with recent NVIDIA drivers and GPU with at least 6GB of memory (more for the bigger models at higher resolution).
 - Use the docker to have a reproducible environment.
@@ -55,7 +58,7 @@ make docker-start-interative
 mkdir /workspace/All4Depth/ckpt
 
 # download self-supervised, 192x640, trained on raw KITTI model
-curl -o /workspace/All4Depth/ckpt https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/models/PackNet01_MR_selfsup_K.ckpt 
+curl -o /workspace/All4Depth/ckpt/all4depth.ckpt https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/models/PackNet01_MR_selfsup_K.ckpt 
 
 # download self-supervised, trained on Cityscapes
 curl -o /workspace/All4Depth/ckpt https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/models/PackNet01_MR_selfsup_CS.ckpt
@@ -141,6 +144,9 @@ curl -s https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/datasets/OmniC
 |:-------------------:|:--------:|----------|-------|---------|
 | SSL, 192x640, KITTI |   0.111  |   0.800  | 4.576 | 0.189   |
 
+![](/assets/0929-depth.png)
+![](/assets/1003-depth.png)
+![](/assets/parking-depth.png)
 
 ### Reference
 ```
