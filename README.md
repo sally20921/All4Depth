@@ -91,6 +91,9 @@ python3 scripts/infer.py --checkpoint ckpt/PackNet01_MR_selfsup_K.ckpt --input a
 ```
 - You can optionally provide the image shape with the flag `--image_shape`.
 
+- If you are working on a remote server, you can view your image via 
+`./imgcat kitti.png` in the assets folder.
+
 #### Training
 
 - Training can be done by passing your `.yaml` config file.
