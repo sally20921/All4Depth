@@ -1,4 +1,4 @@
-"""Default packnet_sfm configuration parameters (overridable in configs/*.yaml)
+"""Default all4depth configuration parameters (overridable in configs/*.yaml)
 """
 
 import os

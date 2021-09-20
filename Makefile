@@ -1,6 +1,6 @@
 # Handy commands:
-# - `make docker-build`: builds DOCKERIMAGE (default: `packnet-sfm:latest`)
-PROJECT ?= packnet-sfm
+# - `make docker-build`: builds DOCKERIMAGE (default: `all4depth:latest`)
+PROJECT ?= all4depth
 WORKSPACE ?= /workspace/$(PROJECT)
 DOCKER_IMAGE ?= ${PROJECT}:latest
 

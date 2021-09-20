@@ -2,18 +2,18 @@
 
 import argparse
 
-from packnet_sfm.models.model_wrapper import ModelWrapper
-from packnet_sfm.models.model_checkpoint import ModelCheckpoint
-from packnet_sfm.trainers.horovod_trainer import HorovodTrainer
-from packnet_sfm.utils.config import parse_train_file
-from packnet_sfm.utils.load import set_debug, filter_args_create
-from packnet_sfm.utils.horovod import hvd_init, rank
-from packnet_sfm.loggers import WandbLogger
+from all4depth.models.model_wrapper import ModelWrapper
+from all4depth.models.model_checkpoint import ModelCheckpoint
+from all4depth.trainers.horovod_trainer import HorovodTrainer
+from all4depth.utils.config import parse_train_file
+from all4depth.utils.load import set_debug, filter_args_create
+from all4depth.utils.horovod import hvd_init, rank
+from all4depth.loggers import WandbLogger
 
 
 def parse_args():
     """Parse arguments for training script"""
-    parser = argparse.ArgumentParser(description='PackNet-SfM training script')
+    parser = argparse.ArgumentParser(description='all4depth training script')
     parser.add_argument('file', type=str, help='Input file (.ckpt or .yaml)')
     args = parser.parse_args()
     assert args.file.endswith(('.ckpt', '.yaml')), \

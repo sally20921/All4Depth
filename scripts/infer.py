@@ -8,14 +8,14 @@ import torch
 from glob import glob
 from cv2 import imwrite
 
-from packnet_sfm.models.model_wrapper import ModelWrapper
-from packnet_sfm.datasets.augmentations import resize_image, to_tensor
-from packnet_sfm.utils.horovod import hvd_init, rank, world_size, print0
-from packnet_sfm.utils.image import load_image
-from packnet_sfm.utils.config import parse_test_file
-from packnet_sfm.utils.load import set_debug
-from packnet_sfm.utils.depth import write_depth, inv2depth, viz_inv_depth
-from packnet_sfm.utils.logging import pcolor
+from all4depth.models.model_wrapper import ModelWrapper
+from all4depth.datasets.augmentations import resize_image, to_tensor
+from all4depth.utils.horovod import hvd_init, rank, world_size, print0
+from all4depth.utils.image import load_image
+from all4depth.utils.config import parse_test_file
+from all4depth.utils.load import set_debug
+from all4depth.utils.depth import write_depth, inv2depth, viz_inv_depth
+from all4depth.utils.logging import pcolor
 
 
 def is_image(file, ext=('.png', '.jpg',)):
@@ -24,7 +24,7 @@ def is_image(file, ext=('.png', '.jpg',)):
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='PackNet-SfM inference of depth maps from images')
+    parser = argparse.ArgumentParser(description='all4depth inference of depth maps from images')
     parser.add_argument('--checkpoint', type=str, help='Checkpoint (.ckpt)')
     parser.add_argument('--input', type=str, help='Input file or folder')
     parser.add_argument('--output', type=str, help='Output file or folder')

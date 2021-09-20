@@ -58,7 +58,7 @@ make docker-start-interative
 mkdir /workspace/All4Depth/ckpt
 
 # download self-supervised, 192x640, trained on raw KITTI model
-curl -o /workspace/All4Depth/ckpt/all4depth.ckpt https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/models/PackNet01_MR_selfsup_K.ckpt 
+curl -o /workspace/All4Depth/ckpt/all4depth.ckpt https://tri-ml-public.s3.amazonaws.com/github/all4depth/models/PackNet01_MR_selfsup_K.ckpt 
 
 # download self-supervised, trained on Cityscapes
 curl -o /workspace/All4Depth/ckpt https://tri-ml-public.s3.amazonaws.com/github/packnet-sfm/models/PackNet01_MR_selfsup_CS.ckpt

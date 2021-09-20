@@ -3,16 +3,16 @@
 import argparse
 import torch
 
-from packnet_sfm.models.model_wrapper import ModelWrapper
-from packnet_sfm.trainers.horovod_trainer import HorovodTrainer
-from packnet_sfm.utils.config import parse_test_file
-from packnet_sfm.utils.load import set_debug
-from packnet_sfm.utils.horovod import hvd_init
+from all4depth.models.model_wrapper import ModelWrapper
+from all4depth.trainers.horovod_trainer import HorovodTrainer
+from all4depth.utils.config import parse_test_file
+from all4depth.utils.load import set_debug
+from all4depth.utils.horovod import hvd_init
 
 
 def parse_args():
     """Parse arguments for training script"""
-    parser = argparse.ArgumentParser(description='PackNet-SfM evaluation script')
+    parser = argparse.ArgumentParser(description='all4depth evaluation script')
     parser.add_argument('--checkpoint', type=str, help='Checkpoint (.ckpt)')
     parser.add_argument('--config', type=str, default=None, help='Configuration (.yaml)')
     parser.add_argument('--half', action="store_true", help='Use half precision (fp16)')

@@ -6,15 +6,15 @@ import torch
 
 from glob import glob
 from argparse import Namespace
-from packnet_sfm.utils.depth import load_depth
+from all4depth.utils.depth import load_depth
 from tqdm import tqdm
 
-from packnet_sfm.utils.depth import load_depth, compute_depth_metrics
+from all4depth.utils.depth import load_depth, compute_depth_metrics
 
 
 def parse_args():
     """Parse arguments for benchmark script"""
-    parser = argparse.ArgumentParser(description='PackNet-SfM benchmark script')
+    parser = argparse.ArgumentParser(description='all4depth benchmark script')
     parser.add_argument('--pred_folder', type=str,
                         help='Folder containing predicted depth maps (.npz with key "depth")')
     parser.add_argument('--gt_folder', type=str,
